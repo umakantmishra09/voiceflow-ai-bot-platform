@@ -182,6 +182,7 @@ export default function Conversations() {
       setConversations(prev => [newConv, ...prev]);
       setSelectedConv(newConv);
       toast.success('New conversation started');
+      fetchConversations(); // Refresh list to ensure order and data consistency
     } catch (error) {
       toast.error('Failed to create conversation');
     }

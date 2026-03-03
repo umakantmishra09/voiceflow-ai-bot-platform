@@ -239,6 +239,21 @@ app.post('/api/calls/outbound', async (req, res) => {
   }
 });
 
+// Incoming Calls Webhook
+app.post('/api/calls/incoming', (req, res) => {
+  const twiml = new twilio.twiml.VoiceResponse();
+  twiml.say('Hello! You have reached VoiceFlow AI. Our AI assistant is currently unavailable for direct voice interaction in this demo, but we have logged your call.');
+  twiml.hangup();
+  
+  const from = req.body.From;
+  const id = 'call_' + uuidv4().slice(0, 8);
+  db.prepare('INSERT INTO call_logs (id, phone_number, direction, status) VALUES (?, ?, ?, ?)')
+    .run(id, from, 'inbound', 'completed');
+    
+  res.type('text/xml');
+  res.send(twiml.toString());
+});
+
 // Settings
 app.get('/api/settings', (req, res) => {
   const rows = db.prepare('SELECT * FROM settings').all();
