@@ -1,23 +1,22 @@
-# VoiceFlow AI - Open Source Voice Bot Platform
+# VoiceFlow AI - Full-Stack AI Bot OS
 
-VoiceFlow AI is a powerful, open-source platform for building and managing AI voice/text bots using 100% free tools. It features Telegram integration, Google Gemini 1.5 Flash, local Whisper STT, and Coqui TTS.
+VoiceFlow AI is a professional, open-source platform for building and managing AI voice/text bots using free tools. This version is a fully functional full-stack implementation with a React dashboard and an Express.js/SQLite backend.
 
-## 🚀 Features
+## 🚀 Key Features
 
-- **Telegram Integration**: Chat via voice or text messages.
-- **Gemini 1.5 Flash**: Multi-turn AI brain for high-speed, accurate responses.
-- **Local STT/TTS**: Uses OpenAI Whisper (local) and Coqui TTS for zero-cost voice processing.
-- **Lead Management**: Automated lead scoring and pipeline management.
-- **Campaigns**: Run automated outreach campaigns via AI.
-- **Dashboard**: Professional FastAPI + React dashboard for monitoring and control.
+- **Gemini 1.5 Flash Integration**: Multi-turn AI chat with real-time lead scoring.
+- **Twilio Calling**: Real outbound dialing and inbound call handling via AI.
+- **Web Speech API**: Browser-based Speech-to-Text (STT) and Text-to-Speech (TTS).
+- **Lead Pipeline**: Automated lead qualification and CRM management.
+- **Campaigns**: Scheduled AI outreach via voice or text.
+- **Escalations**: Human-in-the-loop system for handling complex or high-priority queries.
+- **Dashboard**: Real-time stats, charts, and system monitoring.
 
-## 🛠️ Local Setup
+## 🛠️ Setup Instructions
 
 ### 1. Prerequisites
-
-- Python 3.10+
-- Node.js & npm (for the dashboard)
-- [FFmpeg](https://ffmpeg.org/download.html) (required for audio processing)
+- [Node.js](https://nodejs.org/) (v18 or higher)
+- [FFmpeg](https://ffmpeg.org/) (optional, for advanced audio processing)
 
 ### 2. Get API Keys
 
@@ -25,36 +24,34 @@ VoiceFlow AI is a powerful, open-source platform for building and managing AI vo
   1. Go to [Google AI Studio](https://aistudio.google.com/).
   2. Click on "Get API key".
   3. Create a new API key.
+- **Twilio Credentials**:
+  1. Create an account at [Twilio](https://www.twilio.com/).
+  2. Get your **Account SID** and **Auth Token** from the console.
+  3. Buy or get a free **Twilio Phone Number**.
 - **Telegram Bot Token**:
   1. Message [@BotFather](https://t.me/botfather) on Telegram.
   2. Run `/newbot` and follow the instructions to get your token.
 
-### 3. Backend Installation
+### 3. Environment Setup
 
-```bash
-cd server
-pip install -r requirements.txt
-```
-
-Create a `.env` file in the `server` directory:
+Create a `.env.local` file in the project root:
 ```env
-TELEGRAM_BOT_TOKEN=your_telegram_token
-GEMINI_API_KEY=your_gemini_api_key
+VITE_BLINK_PROJECT_ID=your_project_id
+VITE_BLINK_PUBLISHABLE_KEY=your_publishable_key
+VITE_GEMINI_API_KEY=your_gemini_key
+VITE_TWILIO_ACCOUNT_SID=your_twilio_sid
+VITE_TWILIO_AUTH_TOKEN=your_twilio_token
+VITE_TWILIO_PHONE_NUMBER=your_twilio_number
 ```
 
 ### 4. Run the Platform
 
-**Start the FastAPI Dashboard:**
+**Start the Express.js Backend:**
 ```bash
-python main.py
+node server/index.js
 ```
 
-**Start the Telegram Bot:**
-```bash
-python bot_runner.py
-```
-
-**Start the React Dashboard (separate terminal):**
+**Start the React Dashboard:**
 ```bash
 npm install
 npm run dev
@@ -62,19 +59,15 @@ npm run dev
 
 ## 📂 Project Structure
 
-- `server/`: Python backend logic.
-  - `database/`: SQLite management.
-  - `utils/`: Gemini and AI utilities.
-  - `modules/`: Feature-specific modules (FAQ, Leads, etc.).
-- `src/`: React Dashboard frontend.
-- `database/`: SQLite database storage.
+- `server/index.js`: Express.js server with SQLite database and AI/Twilio logic.
+- `src/pages/`: React dashboard pages (Conversations, Leads, etc.).
+- `src/lib/api.ts`: Centralized API utility for backend communication.
+- `voiceflow.db`: SQLite database file (created on first run).
 
-## 📝 Modules
-
-- **FAQ Support**: Intelligent response to common customer queries.
-- **Lead Scoring**: Automatically qualifies leads based on conversation sentiment and intent.
-- **Escalation Flow**: Detects negative sentiment or complex queries and alerts human agents.
+## 📝 Usage Tips
+- **Conversations**: Use the Microphone button to talk to the AI.
+- **Leads**: Any conversation with a score > 70 is automatically added to the pipeline.
+- **Settings**: Use the "Test Connection" buttons to verify your API keys.
 
 ## ⚖️ License
-
-MIT License. Free to use, modify, and distribute.
+MIT License. Built with ❤️ by Blink.
