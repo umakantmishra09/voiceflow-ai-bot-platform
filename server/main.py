@@ -9,7 +9,7 @@ load_dotenv('.env.local')
 import json
 from datetime import datetime
 
-GROQ_API_KEY = "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"
+GROQ_API_KEY = os.getenv("GROQ_API_KEY", "")
 
 app = FastAPI(title="VoiceFlow AI API")
 app.add_middleware(
